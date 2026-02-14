@@ -15,9 +15,12 @@ CREATE TABLE oauth_tokens (
     user_id VARCHAR(40) NOT NULL,
     oauth_provider VARCHAR(50) NOT NULL,
     oauth_provider_id VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT fk_oauth_user FOREIGN KEY (user_id) REFERENCES users(user_id)
+    refresh_token TEXT,
+    access_token_expiry DATETIME,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE (oauth_provider, oauth_provider_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 -- User settings table
