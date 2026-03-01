@@ -38,5 +38,7 @@ ALTER TABLE reminder DROP COLUMN radius;
 ALTER TABLE reminder DROP COLUMN status;
 ALTER TABLE reminder DROP COLUMN last_triggered_at;
 ALTER TABLE reminder DROP COLUMN completed_at;
+ALTER TABLE reminder DROP COLUMN title;
+ALTER TABLE reminder DROP description;
 ALTER TABLE reminder ADD COLUMN note_id VARCHAR(40);
 ALTER TABLE reminder ADD COLUMN location_id VARCHAR(40);
