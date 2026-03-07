@@ -1,29 +1,45 @@
-# migration
-DB マイグレション用のリポジトリ
-※ 詳細なreadmeはあとほど書きます
+# MapMinder Migration
 
-# 前提条件
+Database migration repository for MapMinder.
 
-1. ローカルに `mysql@8.0` をインストールされていること
-2. DockerとDocker-composeを利用できるじょうたいであること
-3. go migrate をインストールされていること(参考：[go migrate](https://github.com/golang-migrate/migrate))
+---
 
-# セットアップ
-## 手順
+## Prerequisites
 
-1. 本リポジトリをcloneする
-2. 以下のコマンド利用してデータベースを立ち上げる
+1. MySQL 8.0 installed locally
+2. Docker and Docker Compose available
 
-```sh
-docker-compose up -d  // daemonで起動したくないなら -d を追加せずコマンドを実行
+---
+
+## Setup
+
+**1. Clone this repository**
+```bash
+git clone https://github.com/MapMinder/migration.git
+cd migration
 ```
-3. mysqlのコンテナを起動していることを以下のコマンド打って確認
 
-```sh
+**2. Start the database**
+```bash
+docker-compose up -d
+```
+> Remove `-d` if you want to run in the foreground instead of daemon mode.
+
+**3. Confirm the MySQL container is running**
+```bash
 docker ps
 ```
-4. 本リポジトリのrootディレクトリに移動し以下のコマンドを打つ
- 
-```sh
+
+**4. From the root of this repository, run the migrations**
+```bash
 migrate -path ./migration -database "mysql://<user>:<password>@tcp(localhost:3306)/<dbname>" up
+```
+
+---
+
+## Rollback
+
+To roll back the last migration:
+```bash
+migrate -path ./migration -database "mysql://<user>:<password>@tcp(localhost:3306)/<dbname>" down 1
 ```
