@@ -1,0 +1,1 @@
+ALTER TABLE reminder MODIFY COLUMN title VARCHAR(20);
